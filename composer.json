@@ -1,0 +1,36 @@
+{
+    "name": "hnllyrp/thinkphp-support",
+    "description": "The thinkphp support library",
+    "keywords": [
+        "php",
+        "library",
+        "thinkphp"
+    ],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "hnllyrp",
+            "email": "hnllyrp@126.com"
+        }
+    ],
+    "require": {
+        "php": "^7.2.5|^8.0",
+        "topthink/framework": "^6.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Hnllyrp\\ThinkphpSupport\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Hnllyrp\\ThinkphpSupport\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
