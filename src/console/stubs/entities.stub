@@ -1,0 +1,16 @@
+<?php
+declare (strict_types=1);
+
+namespace {%namespace%};
+
+use think\Model;
+
+/**
+ * Class {%className%}
+ * @package {%namespace%}
+ */
+class {%className%} extends Model
+{
+    // 设置字段信息
+    protected $schema = {%schemaType%};
+}

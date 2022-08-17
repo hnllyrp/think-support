@@ -1,0 +1,15 @@
+<?php
+declare (strict_types=1);
+
+namespace {%namespace%};
+
+use app\common\entities\{%className%} as Model;
+
+/**
+ * Class {%className%}
+ * @package {%namespace%}
+ */
+class {%className%} extends Model
+{
+
+}

@@ -1,5 +1,5 @@
 {
-    "name": "hnllyrp/thinkphp-support",
+    "name": "hnllyrp/think-support",
     "description": "The thinkphp support library",
     "keywords": [
         "php",
@@ -16,16 +16,35 @@
     ],
     "require": {
         "php": "^7.2.5|^8.0",
+        "doctrine/dbal": "^2.6",
+        "nesbot/carbon": "^2.31",
+        "symfony/console": "^4.3.4",
+        "symfony/finder": "^4.3.4",
+        "symfony/process": "^4.3.4",
+        "symfony/var-dumper": "^4.3.4",
         "topthink/framework": "^6.0.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.5"
     },
     "autoload": {
         "psr-4": {
-            "Hnllyrp\\ThinkphpSupport\\": "src/"
-        }
+            "hnllyrp\\think\\": "src/"
+        },
+        "files": [
+            "src/support/helper.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
-            "Hnllyrp\\ThinkphpSupport\\Tests\\": "tests/"
+            "hnllyrp\\think\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "think": {
+            "services": [
+                "hnllyrp\\think\\SupportService"
+            ]
         }
     },
     "config": {
