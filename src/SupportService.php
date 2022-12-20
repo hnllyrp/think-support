@@ -29,6 +29,17 @@ class SupportService extends Service
 
             $this->app->register('app\\' . $module . '\\' . basename($service, '.php'));
         }
+
+
+        // 加载合并配置文件
+        $configPath = __DIR__ . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR;;
+        $files = [];
+        if (is_dir($configPath)) {
+            $files = glob($configPath . '*' . $this->app->getConfigExt());
+        }
+        foreach ($files as $file) {
+            $this->app->config->load($file, pathinfo($file, PATHINFO_FILENAME));
+        }
     }
 
     public function boot()
