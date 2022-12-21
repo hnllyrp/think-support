@@ -10,17 +10,14 @@ composer require hnllyrp/think-support
 
 ## 目录结构
 ```shell
-├─config  配置文件
 ├─console 命令行
 ├─middleware 中间件
-├─Providers 服务提供者
-├─resources 静态资源 语言包、视图等
-├─rules 验证规则
-├─services 服务类
 ├─support
 │  ├─facade
+│  ├─traits
 │  ├─shell
 │  ├─Arr.php 常用数组函数
+│  ├─helper.php
 
 ```
 
@@ -51,3 +48,4 @@ composer require hnllyrp/think-support
 
 
 
+- think-cors 中间件

@@ -3,7 +3,7 @@
 namespace hnllyrp\think\middleware;
 
 use Closure;
-use kernel\support\Str;
+use hnllyrp\think\support\Str;
 use think\Config;
 use think\Request;
 use think\Response;
@@ -96,6 +96,12 @@ class AllowCrossDomain
         return $response;
     }
 
+    /**
+     * 最简单宽松条件的，有安全风险
+     * @param Request $request
+     * @param Response $response
+     * @return Response
+     */
     protected function simple(Request $request, Response $response)
     {
         if (!$response->header()->getHeader('Access-Control-Allow-Origin')) {
@@ -109,9 +115,10 @@ class AllowCrossDomain
 
         $header = [
             'Access-Control-Allow-Credentials' => 'true',
-            'Access-Control-Max-Age' => 7200,
+            'Access-Control-Max-Age' => 1,
             'Access-Control-Allow-Methods' => 'GET, POST, PATCH, PUT, DELETE, OPTIONS',
-            'Access-Control-Allow-Headers' => 'Authorization, Content-Type, If-Match, If-Modified-Since, If-None-Match, If-Unmodified-Since, X-CSRF-TOKEN, X-Requested-With',
+            'Access-Control-Allow-Headers' => '*',
+            // 'Access-Control-Allow-Headers' => 'Authorization, Content-Type, If-Match, If-Modified-Since, If-None-Match, If-Unmodified-Since, X-CSRF-TOKEN, X-Requested-With, Accept-Platform, DNT, X-Mx-ReqToken, token, Keep-Alive, User-Agent, Fetch-Mode, Cache-Control, Accept-Language, Origin, Accept-Encoding, Accept',
         ];
         $response->header($header);
 
@@ -126,8 +133,6 @@ class AllowCrossDomain
     {
         // Get the paths from the config or the middleware
         $paths = $this->getPathsByHost($request->host());
-
-        // dd($paths);
 
         foreach ($paths as $path) {
             if ($path !== '/') {
@@ -144,7 +149,11 @@ class AllowCrossDomain
 
     public function fullUrlIs(Request $request, ...$patterns)
     {
-        $url = $this->fullUrl($request);
+        /**
+         * 指定可允许的 url
+         * exp: http://test.selfshop.shmd/*
+         */
+        $url = $request->url(true);
 
         foreach ($patterns as $pattern) {
             if (Str::is($pattern, $url)) {
@@ -155,22 +164,12 @@ class AllowCrossDomain
         return false;
     }
 
-    /**
-     * Get the full URL for the request.
-     *
-     * @return string
-     */
-    public function fullUrl(Request $request)
-    {
-        // $query = $this->query();
-        // $question = $this->getBaseUrl().$request->pathinfo() === '/' ? '/?' : '?';
-        // return $query ? $this->url().$question.$query : $this->url();
-
-        return $request->url(true);
-    }
-
     public function is(Request $request, ...$patterns)
     {
+        /**
+         * 指定可允许的方法
+         * exp: index/info   get/user
+         */
         $path = rawurldecode($this->path($request));
 
         foreach ($patterns as $pattern) {
